@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { RequestHandler } from 'express';
-import HttpException from '@shared/errors/HttpException';
 import { validateAll } from 'indicative/validator';
+import { RequestHandler } from 'express';
+import HttpException from '../shared/errors/HttpException';
 
 function validator(rules: any, messages = {}): RequestHandler {
   return async (req, res, next) => {

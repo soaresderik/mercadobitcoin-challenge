@@ -1,6 +1,6 @@
-import HttpException from '@shared/errors/HttpException';
-import validator from '@middlewares/validator.middleware';
 import { Router } from 'express';
+import HttpException from '../../shared/errors/HttpException';
+import validator from '../../middlewares/validator.middleware';
 import { CryptoService } from '.';
 import { subDays } from '../../shared/helpers';
 
