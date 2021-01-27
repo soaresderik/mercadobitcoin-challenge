@@ -4,20 +4,21 @@
 
 É necessário ter o docker e o docker-compose instalados para rodar o projeto. Estando eles presente na máquina, na raiz do projeto, digite o commando `docker-compose up` e aguarde os serviços carregarem. O terminal mostrará algo como:
 
-> backend_1 | Debugger listening on ws://127.0.0.1:9229/4e54e6d9-5530-4028-a473-e3b113b872a4
-> backend_1 | For help, see: https://nodejs.org/en/docs/inspector
-> backend_1 | Server started on port 3002!
+> backend_1 | Debugger listening on ws://127.0.0.1:9229/4e54e6d9-5530-4028-a473-e3b113b872a4 \
+> backend_1 | For help, see: https://nodejs.org/en/docs/inspector \
+> backend_1 | Server started on port 3002! \
 
 Uma vez inicializado é necessário também popular a tabela principal. Para isso, atravéz de um novo terminal, entre no serviço da api com o comando `docker-compose exec backend sh` e então execute `npm run db:populate`. Aguarde até a mensagem `Completed!` ser exibida.
 
 Para fazer a primeira consulta e saber se os dados carregaram corretamente, tente executar a chamada abaixo:
-
-> curl --location --request GET 'http://localhost:3002/BRLBTC/mms' \
-> --header 'Content-Type: application/json' \
-> --data-raw '{
-> "from": "2020-01-31T18:51:45.600Z",
-> "range": "20"
-> }'
+```sh
+ curl --location --request GET 'http://localhost:3002/BRLBTC/mms' \
+ --header 'Content-Type: application/json' \
+ --data-raw '{
+ "from": "2020-01-31T18:51:45.600Z",
+ "range": "20"
+ }' 
+ ```
 
 Também é possível checar os dados inseridos banco de dados acessando a rota http://localhost:8080 e entrar com as credenciais que estão no arquivo docker-compose.yml
 
