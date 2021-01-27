@@ -1,0 +1,12 @@
+db
+.idea/
+node_modules/
+.env
+build/
+temp/
+coverage
+tmp/*
+dist
+!tmp/.gitkeep
+package-*.json
+
