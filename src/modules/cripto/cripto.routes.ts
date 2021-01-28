@@ -1,11 +1,11 @@
 import { Router } from 'express';
 import HttpException from '../../shared/errors/HttpException';
 import validator from '../../middlewares/validator.middleware';
-import { CryptoService } from '.';
+import { CriptoService } from '.';
 import { subDays } from '../../shared/helpers';
 
 const routes = Router();
-const cryptoService = new CryptoService();
+const criptoService = new CriptoService();
 
 routes.get(
   '/:pair/mms',
@@ -21,7 +21,7 @@ routes.get(
 
     const to = req.body.to ? req.body.to : subDays(new Date(), 1);
     res.json(
-      await cryptoService.getMMSInARange({
+      await criptoService.getMMSInARange({
         ...req.body,
         to,
         pair: req.params.pair,

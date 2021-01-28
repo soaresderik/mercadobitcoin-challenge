@@ -7,7 +7,7 @@
     "build": "tsc",
     "dev:server": "env $(cat .env) ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore node_modules src/server.ts",
     "start": "env $(cat .env) ts-node src/server.ts",
-    "test": "env $(cat .env) jest --no-cache",
+    "test": "env $(cat .env.local) jest --no-cache",
     "migrate:make": "knex --knexfile src/config/knexfile.ts migrate:make -x ts --",
     "migrate:latest": "knex --knexfile src/config/knexfile.ts migrate:latest",
     "migrate:rollback": "env $(cat .env.local) knex --knexfile src/config/knexfile.ts migrate:rollback",

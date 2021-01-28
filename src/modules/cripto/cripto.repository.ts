@@ -1,15 +1,15 @@
 import { knex } from '../../config/index';
 import { IDailyPrice, IPair } from '../../shared/interfaces';
 import Repository from '../repository-base';
-import { IGetMMSDTO } from './crypto.interfaces';
+import { IGetMMSDTO } from './cripto.interfaces';
 import { unixDate } from '../../shared/helpers';
 
-export default class CryptoRepository extends Repository<IDailyPrice> {
+export default class CriptoRepository extends Repository<IDailyPrice> {
   constructor(protected db = knex) {
     super('daily_price', db);
   }
 
-  public async findCryptoByTimestamp(timestamps: number[], pair: IPair) {
+  public async findCriptoByTimestamp(timestamps: number[], pair: IPair) {
     const result = await this.db<IDailyPrice>('daily_price')
       .whereIn('timestamp', timestamps)
       .where('pair', pair);

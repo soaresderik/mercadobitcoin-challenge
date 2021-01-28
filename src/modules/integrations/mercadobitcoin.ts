@@ -7,7 +7,7 @@ import {
   IPair,
   IRanges,
   errorCode,
-} from '../shared/interfaces';
+} from '../../shared/interfaces';
 import {
   unixDate,
   splice,
@@ -15,8 +15,8 @@ import {
   jsDate,
   flatMap,
   subDays,
-} from '../shared/helpers';
-import HttpException from '../shared/errors/HttpException';
+} from '../../shared/helpers';
+import HttpException from '../../shared/errors/HttpException';
 
 export default class MercadoBitcoinIntegration {
   constructor(

@@ -1,13 +1,13 @@
 import HttpException from '../../shared/errors/HttpException';
 import { SystemNotificationRepository } from '../system-notification';
 import { IDailyPriceDTO, errorCode } from '../../shared/interfaces';
-import { MercadoBitcoinIntegration } from '../../integrations/index';
+import { MercadoBitcoinIntegration } from '../integrations/index';
 import { subDays, unixDate, diffDays } from '../../shared/helpers';
-import { CryptoRepository, IGetMMSDTO } from '.';
+import { CriptoRepository, IGetMMSDTO } from '.';
 
-export default class CryptoService {
+export default class CriptoService {
   constructor(
-    private cryptoRepository = new CryptoRepository(),
+    private criptoRepository = new CriptoRepository(),
     private systemNotificationRepository = new SystemNotificationRepository(),
     private mercadobitcoinIntegration = new MercadoBitcoinIntegration(),
   ) {}
@@ -22,7 +22,7 @@ export default class CryptoService {
       );
     }
 
-    const mms = await this.cryptoRepository.getMMSInARange(params);
+    const mms = await this.criptoRepository.getMMSInARange(params);
 
     return mms;
   }
@@ -35,7 +35,7 @@ export default class CryptoService {
       } = await this.mercadobitcoinIntegration.getDailyPrice(params);
 
       // Verifica se o intervalo encontrado ja foi inserido, se sim vai filtrar apenas por novos.
-      const alreadySaved = await this.cryptoRepository.findCryptoByTimestamp(
+      const alreadySaved = await this.criptoRepository.findCriptoByTimestamp(
         toInsert.map(item => item.timestamp as number),
         params.pair,
       );
@@ -48,7 +48,7 @@ export default class CryptoService {
       }
 
       if (store.length) {
-        await this.cryptoRepository.store(store);
+        await this.criptoRepository.store(store);
       }
 
       if (missingDates.length) {
@@ -58,6 +58,8 @@ export default class CryptoService {
           metadata: JSON.stringify(missingDates),
         });
       }
+
+      return { store, missingDates };
     } catch (err) {
       if (err.message === errorCode.CALL_API_DAILY_PRICE) {
         const to = params.to || new Date();

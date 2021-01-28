@@ -1,14 +1,14 @@
 /* eslint-disable no-console */
 import { IPair } from './shared/interfaces';
-import { CryptoService } from './modules/crypto';
+import { CriptoService } from './modules/cripto';
 
-const cryptoService = new CryptoService();
+const criptoService = new CriptoService();
 
 (async () => {
   try {
     await Promise.all(
       (['BRLETH', 'BRLBTC'] as IPair[]).map(async pair => {
-        await cryptoService.populateDailyPrice({
+        await criptoService.populateDailyPrice({
           diffDays: 365,
           pair,
         });

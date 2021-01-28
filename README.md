@@ -11,16 +11,21 @@
 Uma vez inicializado é necessário também popular a tabela principal. Para isso, atravéz de um novo terminal, entre no serviço da api com o comando `docker-compose exec backend sh` e então execute `npm run db:populate`. Aguarde até a mensagem `Completed!` ser exibida.
 
 Para fazer a primeira consulta e saber se os dados carregaram corretamente, tente executar a chamada abaixo:
+
 ```sh
  curl --location --request GET 'http://localhost:3002/BRLBTC/mms' \
  --header 'Content-Type: application/json' \
  --data-raw '{
  "from": "2020-01-31T18:51:45.600Z",
  "range": "20"
- }' 
- ```
+ }'
+```
 
 Também é possível checar os dados inseridos banco de dados acessando a rota http://localhost:8080 e entrar com as credenciais que estão no arquivo docker-compose.yml
+
+### Testes Unitários
+
+Para executar os testes unitários, basta rodar o script `test` do `package.json` (`npm test` ou `yarn test`)
 
 #### Comportamento do scheduler
 

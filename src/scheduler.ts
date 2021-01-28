@@ -3,14 +3,14 @@ import cron from 'node-cron';
 import { knex } from './config';
 import { errorCode, IMetadaDailyPrice, IPair } from './shared/interfaces';
 import { jsDate, diffDays } from './shared/helpers';
-import { CryptoService, CryptoRepository } from './modules/crypto';
+import { CriptoService, CriptoRepository } from './modules/cripto';
 
 /** Este fluxo contempla tanto falhas dos dias que estão faltando na tabela
- *  quanto a falhas nas chamadas a api de cryptomoedas */
+ *  quanto a falhas nas chamadas a api de criptomoedas */
 cron.schedule('* */12 * * *', async () => {
   console.log('Init CRON: retry populate daily price table');
   const trx = await knex.transaction();
-  const cryptoService = new CryptoService(new CryptoRepository(trx));
+  const criptoService = new CriptoService(new CriptoRepository(trx));
 
   try {
     const result = await trx<{ id: string; metadata: IMetadaDailyPrice[] }>(
@@ -27,7 +27,7 @@ cron.schedule('* */12 * * *', async () => {
     if (result && result.metadata.length) {
       await Promise.all(
         result.metadata.map(async item => {
-          await cryptoService.populateDailyPrice({
+          await criptoService.populateDailyPrice({
             to: jsDate(item.to),
             diffDays: diffDays(jsDate(item.to), jsDate(item.from)),
             pair: item.pair,
@@ -53,7 +53,7 @@ cron.schedule('* */24 * * *', async () => {
   console.log('Init CRON: populate daily price table regularly');
   const trx = await knex.transaction();
 
-  const cryptoService = new CryptoService(new CryptoRepository(trx));
+  const criptoService = new CriptoService(new CriptoRepository(trx));
 
   try {
     await Promise.all(
@@ -69,7 +69,7 @@ cron.schedule('* */24 * * *', async () => {
 
         const diff = diffDays(new Date(), jsDate(result.timestamp));
         if (diff > 1) {
-          await cryptoService.populateDailyPrice({
+          await criptoService.populateDailyPrice({
             diffDays: diff,
             pair,
           });

@@ -1,9 +1,9 @@
 import { Router } from 'express';
 
-import { cryptoRoutes } from '@modules/crypto';
+import { criptoRoutes } from '@modules/cripto';
 
 const routes = Router();
 
-routes.use('/', cryptoRoutes);
+routes.use('/', criptoRoutes);
 
 export default routes;
