@@ -23,7 +23,7 @@ Para fazer a primeira consulta e saber se os dados carregaram corretamente, tent
 
 Também é possível checar os dados inseridos banco de dados acessando a rota http://localhost:8080 e entrar com as credenciais que estão no arquivo docker-compose.yml
 
-### Testes Unitários
+#### Testes Unitários
 
 Para executar os testes unitários, basta rodar o script `test` do `package.json` (`npm test` ou `yarn test`)
 
